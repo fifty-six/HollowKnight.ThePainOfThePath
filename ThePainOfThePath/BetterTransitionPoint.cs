@@ -5,7 +5,7 @@ namespace ThePainOfThePath
 {
     internal class BetterTransitionPoint : MonoBehaviour
     {
-        private bool _e;
+        private bool _triggered;
         
         public string SceneName { private get; set; }
         public string EntryGateName { private get; set; }
@@ -34,12 +34,14 @@ namespace ThePainOfThePath
                 AlwaysUnloadUnusedAssets = true
             });
 
-            _e = true;
+            _triggered = true;
         }
         
         private void OnTriggerStay2D(Collider2D obj)
         {
-            if (_e) return;
+            if (_triggered) 
+                return;
+            
             OnTriggerEnter2D(obj);
         }
     }

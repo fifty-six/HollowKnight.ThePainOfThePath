@@ -17,10 +17,9 @@ namespace ThePainOfThePath
 
         private const float SAW = 1.362954f;
 
-        public ThePainOfThePath()
-        {
-            typeof(ThePainOfThePath).GetField("Name").SetValue(this, "The Pain of the Path");
-        }
+        private const string DOOR_NAME = "door_potp";
+
+        public ThePainOfThePath() : base("The Pain of the Path") { }
 
         public override void Initialize()
         {
@@ -45,12 +44,12 @@ namespace ThePainOfThePath
                 return;
             }
 
-            var go = new GameObject("doorThingy");
+            var go = new GameObject(DOOR_NAME);
 
             var tp = go.AddComponent<TransitionPoint>();
             tp.respawnMarker = go.AddComponent<HazardRespawnMarker>();
             tp.isADoor = true;
-            tp.name = "doorThingy";
+            tp.name = DOOR_NAME;
 
             go.transform.position = new Vector3(228.4f, 165.3f);
 
@@ -131,7 +130,7 @@ namespace ThePainOfThePath
                     }, "tp", Color.black).AddComponent<BetterTransitionPoint>();
 
                     tp.SceneName = "White_Palace_20";
-                    tp.EntryGateName = "doorThingy";
+                    tp.EntryGateName = DOOR_NAME;
                     tp.SetBackwards = true;
 
                     if (Gm.entryGateName == "left1")
@@ -189,8 +188,8 @@ namespace ThePainOfThePath
             renderer.material.color = Color.white;
 
             // Collider
-            var a = plane.AddComponent<BoxCollider2D>();
-            a.isTrigger = false;
+            var col = plane.AddComponent<BoxCollider2D>();
+            col.isTrigger = false;
 
             // Make it exist.
             plane.SetActive(true);
